@@ -34,6 +34,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LondonTravel.Site.Tests", "
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "selenium-hub", "tests\selenium-hub\selenium-hub.dcproj", "{D5E0BA9E-AC4A-440D-A2F3-69FA6C38DEA6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{CED6C282-D92C-4961-9417-A43F19CED402}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "azure-documentdb-emulator", "tests\azure-documentdb-emulator\azure-documentdb-emulator.dcproj", "{6E03244A-1A29-41AB-884D-427727473D79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +56,10 @@ Global
 		{D5E0BA9E-AC4A-440D-A2F3-69FA6C38DEA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E0BA9E-AC4A-440D-A2F3-69FA6C38DEA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5E0BA9E-AC4A-440D-A2F3-69FA6C38DEA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E03244A-1A29-41AB-884D-427727473D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E03244A-1A29-41AB-884D-427727473D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E03244A-1A29-41AB-884D-427727473D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E03244A-1A29-41AB-884D-427727473D79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F1A4074F-A8DE-4A9A-97EF-91830AEC59B3} = {0EED3EF2-37DE-4E6E-B766-3E641D163515}
 		{0106CA34-73B0-4F30-8BDF-AF8D7AB22A4A} = {668E07A5-C40F-4694-9D3C-EBC1180656CF}
-		{D5E0BA9E-AC4A-440D-A2F3-69FA6C38DEA6} = {668E07A5-C40F-4694-9D3C-EBC1180656CF}
+		{D5E0BA9E-AC4A-440D-A2F3-69FA6C38DEA6} = {CED6C282-D92C-4961-9417-A43F19CED402}
+		{CED6C282-D92C-4961-9417-A43F19CED402} = {668E07A5-C40F-4694-9D3C-EBC1180656CF}
+		{6E03244A-1A29-41AB-884D-427727473D79} = {CED6C282-D92C-4961-9417-A43F19CED402}
 	EndGlobalSection
 EndGlobal

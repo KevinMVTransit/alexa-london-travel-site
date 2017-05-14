@@ -1,0 +1,15 @@
+﻿version: "2.1"
+services:
+    azure_documentdb_emulator:
+        image: microsoft/azure-documentdb-emulator:latest
+        container_name: azure_documentdb_emulator
+        ports:
+            - 8081:8081
+            - 10250:10250
+            - 10251:10251
+            - 10252:10252
+            - 10253:10253
+            - 10254:10254
+        tty: true
+        volumes:
+          - .\.dockershare:c:\DocumentDBEmulator\DocumentDBEmulatorCert
