@@ -3,6 +3,7 @@
 
 namespace MartinCostello.LondonTravel.Site.Telemetry
 {
+    using System.Collections.Generic;
     using System.Diagnostics;
     using Extensions;
     using Microsoft.ApplicationInsights.Channel;
@@ -54,11 +55,10 @@ namespace MartinCostello.LondonTravel.Site.Telemetry
 
             if (telemetry is DependencyTelemetry dependency)
             {
-                Activity activity = Activity.Current;
-
-                if (activity != null)
+                // HACK Horrible hack to get the values from HttpDiagnosticSourceListener
+                if (HttpDiagnosticSourceListener.PendingTelemetry.TryRemove(dependency.Id, out IEnumerable<KeyValuePair<string, string>> properties))
                 {
-                    foreach (var item in activity.Tags)
+                    foreach (var item in properties)
                     {
                         dependency.Properties[item.Key] = item.Value;
                     }

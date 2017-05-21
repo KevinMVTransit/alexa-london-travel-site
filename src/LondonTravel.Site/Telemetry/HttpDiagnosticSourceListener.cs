@@ -4,6 +4,7 @@
 namespace MartinCostello.LondonTravel.Site.Telemetry
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Net.Http;
@@ -21,6 +22,11 @@ namespace MartinCostello.LondonTravel.Site.Telemetry
         /// The name of the diagnostic event containing an HTTP response.
         /// </summary>
         internal const string HttpOutStopEventName = "System.Net.Http.Response";
+
+        /// <summary>
+        /// The pending Application Insights telemetry. This field is read-only.
+        /// </summary>
+        private static readonly ConcurrentDictionary<string, IEnumerable<KeyValuePair<string, string>>> _pendingTelemetry = new ConcurrentDictionary<string, IEnumerable<KeyValuePair<string, string>>>();
 
         /// <summary>
         /// The URL filter to use for Application Insights. This field is read-only.
@@ -60,6 +66,11 @@ namespace MartinCostello.LondonTravel.Site.Telemetry
             Dispose(false);
         }
 
+        /// <summary>
+        /// Gets the pending additional dependency telemetry properties.
+        /// </summary>
+        internal static ConcurrentDictionary<string, IEnumerable<KeyValuePair<string, string>>> PendingTelemetry => _pendingTelemetry;
+
         /// <inheritdoc />
         public void Dispose()
         {
@@ -95,14 +106,32 @@ namespace MartinCostello.LondonTravel.Site.Telemetry
 
                 if (activity != null)
                 {
+                    ICollection<KeyValuePair<string, string>> properties = null;
+
                     if (response.Headers.TryGetValues("x-ms-activity-id", out IEnumerable<string> values))
                     {
-                        activity.AddTag("Activity Id", string.Join(", ", values));
+                        if (properties != null)
+                        {
+                            properties = new List<KeyValuePair<string, string>>(2);
+                        }
+
+                        properties.Add(new KeyValuePair<string, string>("ActivityId", string.Join(", ", values)));
                     }
 
                     if (response.Headers.TryGetValues("x-ms-request-charge", out values))
                     {
-                        activity.AddTag("Request Charge", string.Join(", ", values));
+                        if (properties != null)
+                        {
+                            properties = new List<KeyValuePair<string, string>>(1);
+                        }
+
+                        properties.Add(new KeyValuePair<string, string>("RequestCharge", string.Join(", ", values)));
+                    }
+
+                    if (properties != null)
+                    {
+                        // HACK Horrible hack to make the values available to SiteTelemetryInitializer
+                        _pendingTelemetry.TryAdd(activity.Id, properties);
                     }
                 }
             }
