@@ -12,7 +12,7 @@ namespace MartinCostello.LondonTravel.Site.Telemetry
     /// <remarks>
     /// Based on <c>https://github.com/Microsoft/ApplicationInsights-dotnet-server/blob/db53106c5d85546a2508ecb9dcd6bf1106fb29fa/Src/DependencyCollector/Shared/Implementation/PropertyFetcher.cs</c>.
     /// </remarks>
-    internal sealed class PropertyFetcher
+    public sealed class PropertyFetcher
     {
         private readonly string _propertyName;
         private PropertyFetch _innerFetcher;
@@ -65,7 +65,7 @@ namespace MartinCostello.LondonTravel.Site.Telemetry
             {
                 private readonly Func<TObject, TProperty> _propertyFetch;
 
-                internal TypedFetchProperty(PropertyInfo property)
+                public TypedFetchProperty(PropertyInfo property)
                 {
                     _propertyFetch = (Func<TObject, TProperty>)property.GetMethod.CreateDelegate(typeof(Func<TObject, TProperty>));
                 }
