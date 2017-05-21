@@ -254,6 +254,7 @@ namespace MartinCostello.LondonTravel.Site
             services.AddSingleton<IDocumentClient, DocumentClientWrapper>();
             services.AddSingleton<ISiteTelemetry, SiteTelemetry>();
             services.AddSingleton<ITelemetryInitializer, SiteTelemetryInitializer>();
+            services.AddSingleton<ITelemetryModule, SiteTelemetryModule>();
             services.AddSingleton<ITflServiceFactory, TflServiceFactory>();
 
             services.AddScoped((p) => p.GetRequiredService<IHttpContextAccessor>().HttpContext);
